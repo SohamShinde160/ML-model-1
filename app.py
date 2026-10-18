@@ -16,6 +16,14 @@ warnings.filterwarnings('ignore')
 app = Flask(__name__)
 CORS(app)
 
+
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "message": "AI Dermatologist ML API is running"
+    }), 200
+
+
 # Define disease classes
 CLASS_NAMES = [
     "Actinic keratosis", "Atopic Dermatitis", "Benign keratosis",
@@ -135,4 +143,8 @@ def predict():
         }), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7000, debug=True)
+    app.run(
+        host='0.0.0.0',
+        port=int(os.environ.get('PORT', 7000)),
+        debug=False
+    )
